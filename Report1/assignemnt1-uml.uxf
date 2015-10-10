@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>50</x>
+      <y>180</y>
+      <w>190</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>users
+--
+id &lt;&lt;PK&gt;&gt;: bigint
+email: varchar(255)
+password: varchar(255)
+latitude: real
+longitude: real
+created_at: timestamp
+updated_at: timestamp
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>440</y>
+      <w>190</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>participants
+--
+user_id &lt;&lt;PK, FK&gt;&gt;: bigint
+event_id &lt;&lt;PK, FK&gt;&gt;: bigint</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>70</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ratings
+--
+user_id &lt;&lt;PK, FK&gt;&gt;: bigint
+event_id &lt;&lt;PK, FK&gt;&gt;: bigint
+value: smallint</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>430</x>
+      <y>180</y>
+      <w>190</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>events
+--
+id &lt;&lt;PK&gt;&gt;:	 bigint
+user_id &lt;&lt;FK&gt;&gt;: bigint
+place_id &lt;&lt;FK&gt;&gt;: bigint
+date: timestamp
+name: varchar(127)
+description: varchar(511)
+available_places: int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>740</x>
+      <y>200</y>
+      <w>190</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>places
+--
+id &lt;&lt;PK&gt;&gt;: bigint
+name: varchar(127)
+latitude: real
+longitude: real
+description: varchar(511)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>310</y>
+      <w>210</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+user_id: id
+m1=1
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;170.0;40.0;170.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>310</y>
+      <w>190</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+event_id: id
+m1=1
+m2=0..*</panel_attributes>
+    <additional_attributes>170.0;10.0;170.0;40.0;10.0;40.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>90</x>
+      <y>110</y>
+      <w>170</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+user_id: id
+m1=1
+m2=0..*</panel_attributes>
+    <additional_attributes>40.0;70.0;40.0;10.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>110</y>
+      <w>150</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+event_id: id
+m1=1
+m2=0..*</panel_attributes>
+    <additional_attributes>100.0;70.0;100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>610</x>
+      <y>250</y>
+      <w>150</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+place_id: id
+m1=1
+m2=1..*</panel_attributes>
+    <additional_attributes>130.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>230</x>
+      <y>250</y>
+      <w>220</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+user_id: id
+m1=1
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+  </element>
+</diagram>

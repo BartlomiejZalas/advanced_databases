@@ -6,7 +6,7 @@ create table users(
   latitude real,
   longitude real,
   created_at timestamp without time zone not null default now(),
-  updated_at timestamp without time zone not null default now()
+  last_activity timestamp without time zone not null default now()
 );
 
 
@@ -23,6 +23,9 @@ create table events(
   id bigserial primary key,
   name character varying(127) not null,
   description character varying(511),
+  created_at timestamp without timezone not null default now(),
+  starts_at timestamp without timezone not null,
+  ends_at timestamp without timezone not null,
   user_id bigint not null references users(id) ,
   place_id bigint not null references places(id)
 );
@@ -45,4 +48,3 @@ create table ratings(
 create table user_profiles(
   user_id bigint PRIMARY KEY REFERENCES users(id)
 );
-

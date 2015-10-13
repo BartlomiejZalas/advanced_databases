@@ -45,10 +45,6 @@ create table ratings(
   primary key(user_id, event_id)
 );
 
-create table user_profiles(
-  user_id bigint PRIMARY KEY REFERENCES users(id)
-);
-
 create table tickets(
   id bigint primary key,
   event_id bigint not null REFERENCES events(id) on delete cascade,

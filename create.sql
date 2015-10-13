@@ -48,3 +48,11 @@ create table ratings(
 create table user_profiles(
   user_id bigint PRIMARY KEY REFERENCES users(id)
 );
+
+create table tickets(
+  id bigint primary key,
+  event_id bigint not null REFERENCES events(id) on delete cascade,
+  sold_amount int not null default 0,
+  max_amount int,
+  price real not null
+);

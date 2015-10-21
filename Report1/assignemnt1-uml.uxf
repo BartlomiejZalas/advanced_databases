@@ -4,7 +4,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>50</x>
+      <x>0</x>
       <y>180</y>
       <w>190</w>
       <h>140</h>
@@ -17,7 +17,7 @@ password: varchar(255)
 latitude: real
 longitude: real
 created_at: timestamp
-updated_at: timestamp
+last_activity: timestamp
 
 </panel_attributes>
     <additional_attributes/>
@@ -25,7 +25,7 @@ updated_at: timestamp
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>240</x>
+      <x>190</x>
       <y>390</y>
       <w>190</w>
       <h>60</h>
@@ -39,7 +39,7 @@ event_id &lt;&lt;PK, FK&gt;&gt;: bigint</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>240</x>
+      <x>190</x>
       <y>70</y>
       <w>190</w>
       <h>80</h>
@@ -54,27 +54,31 @@ value: smallint</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
-      <y>190</y>
+      <x>380</x>
+      <y>170</y>
       <w>190</w>
-      <h>130</h>
+      <h>160</h>
     </coordinates>
     <panel_attributes>events
 --
 id &lt;&lt;PK&gt;&gt;:	 bigint
-user_id &lt;&lt;FK&gt;&gt;: bigint
-place_id &lt;&lt;FK&gt;&gt;: bigint
-date: timestamp
 name: varchar(127)
 description: varchar(511)
+created_at: timestamp
+starts_at: timestamp
+ends_at: timestamp
+user_id &lt;&lt;FK&gt;&gt;: bigint
+place_id &lt;&lt;FK&gt;&gt;: bigint
+
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>640</x>
-      <y>60</y>
+      <x>590</x>
+      <y>40</y>
       <w>190</w>
       <h>110</h>
     </coordinates>
@@ -90,7 +94,7 @@ description: varchar(511)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>130</x>
+      <x>80</x>
       <y>310</y>
       <w>210</w>
       <h>100</h>
@@ -104,21 +108,21 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>350</x>
-      <y>310</y>
+      <x>300</x>
+      <y>320</y>
       <w>160</w>
-      <h>100</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 event_id: id
 m1=1
 m2=0..*</panel_attributes>
-    <additional_attributes>140.0;10.0;140.0;40.0;10.0;40.0;10.0;80.0</additional_attributes>
+    <additional_attributes>140.0;10.0;140.0;30.0;10.0;30.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>90</x>
+      <x>40</x>
       <y>110</y>
       <w>170</w>
       <h>90</h>
@@ -132,35 +136,35 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>420</x>
+      <x>370</x>
       <y>110</y>
       <w>150</w>
-      <h>100</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 event_id: id
 m1=1
 m2=0..*</panel_attributes>
-    <additional_attributes>100.0;80.0;100.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>100.0;60.0;100.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>610</x>
-      <y>160</y>
+      <x>560</x>
+      <y>140</y>
       <w>180</w>
-      <h>140</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 place_id: id
 m1=1
 m2=1..*</panel_attributes>
-    <additional_attributes>130.0;10.0;130.0;110.0;10.0;110.0</additional_attributes>
+    <additional_attributes>130.0;10.0;130.0;120.0;10.0;120.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
+      <x>180</x>
       <y>250</y>
       <w>220</w>
       <h>50</h>
@@ -174,7 +178,7 @@ m2=0..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>620</x>
+      <x>570</x>
       <y>380</y>
       <w>190</w>
       <h>110</h>
@@ -183,8 +187,8 @@ m2=0..*</panel_attributes>
 --
 id &lt;&lt;PK&gt;&gt;: bigint
 event_id &lt;&lt;FK&gt;&gt;: bigint
-amount: int
-name: varchar(127)
+sold_amount: int
+max_amount: int
 price: real
 </panel_attributes>
     <additional_attributes/>
@@ -192,15 +196,15 @@ price: real
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>560</x>
-      <y>310</y>
+      <x>490</x>
+      <y>320</y>
       <w>190</w>
-      <h>90</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 event_id: id
 m1=1
-m2=0..*</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0;150.0;40.0;150.0;70.0</additional_attributes>
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0;170.0;30.0;170.0;60.0</additional_attributes>
   </element>
 </diagram>

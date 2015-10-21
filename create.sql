@@ -46,7 +46,7 @@ create table ratings(
 );
 
 create table tickets(
-  ticket_id bigint primary key,
+  ticket_id bigserial primary key,
   event_id bigint not null REFERENCES events(event_id) on delete cascade,
   sold_amount int not null default 0,
   max_amount int,

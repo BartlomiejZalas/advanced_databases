@@ -3,8 +3,7 @@ create table users(
   user_id bigserial primary key,
   email character varying(255) not null unique,
   password character varying(255) not null,
-  latitude real,
-  longitude real,
+  location geography(POINT, 4326),
   created_at timestamp without time zone not null default now(),
   last_activity timestamp without time zone not null default now()
 );
@@ -13,8 +12,7 @@ create table users(
 create table places(
   place_id bigserial primary key,
   name character varying(127) not null,
-  latitude real not null,
-  longitude real not null,
+  location geography(POINT, 4326),
   description character varying(511)
 );
 

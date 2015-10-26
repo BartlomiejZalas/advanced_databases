@@ -61,7 +61,63 @@ ORDER BY profit
 LIMIT 10;
 
 
+-- Get my nearest 10 places (places which were visited by user)
+-- Find all events, in which user was participant
+-- Join places to events
+-- Calculate distance between user and place
+-- Order places by distance.
+-- Let's assume, that current user is user no 100
+select p.* from places p
+	join events e on p.place_id = e.place_id
+	join participants part on part.event_id = e.event_id and part.user_id = 100
+order by st_distance(p.location, (select location from users where user_id = 100))
+limit 10;
 
+
+-- Get most popular, active events in the area (within 25km radius), paged, 15 events per page. Add user an events from the list.
+-- Select places wihin area
+-- Join events
+-- Order by number of participants descending
+-- Drop first page * 15 results
+-- Take 15 results.
+-- Add user an event from the list if there are tickets available.
+-- assume page 0 and again assume user 100
+BEGIN;
+
+insert into participants
+select 100, desired.id from
+	(select e.* from events e
+	join places p on p.place_id = e.place_id
+	where st_dwithin(p.location, (select location from users where user_id = 100), 25000, true) and e.ends_at < now() and e.starts_at > now()
+	order by (select count(*) from participants part where part.event_id = e.event_id) desc
+	offset 0
+	limit 15)
+as desired
+where exists(select t.ticket_id from tickets t where sold_amount < max_amount);
+
+commit;
+
+
+
+-- Get authors who created  within last month at least 10 events which are outside of an area where the user is (25km radius) and delete them. Very primitive spam detection.
+-- Join events to each user
+-- Join places to each event
+-- Calculate distance between user and place (distance)
+-- Count events created by user (sum of events) in last month
+-- Select users which distance is greater than 25 and sum of events is greater than 10 and remove duplications (users).
+-- Remove users.
+begin;
+
+delete from users u
+where u.user_id in (
+	select e.user_id from events e
+	join places p on p.place_id = e.place_id
+	where st_dwithin(p.location, u.location, 25000) = false and e.created_at > now() - interval '1 month'
+	group by u.user_id
+	having count(e.user_id) > 10
+);
+
+commit;
 
 
 

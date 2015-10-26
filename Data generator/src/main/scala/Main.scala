@@ -25,7 +25,7 @@ object DataGenerator {
   import tables.Tables.profile.api._
   import tables.Tables._
 
-  private val UsersNo = 100000
+  private val UsersNo = 1000000
   private val PlacesNo = UsersNo/4
   private val EventsNo = UsersNo/2
   private val ParticipatingIn = 4

@@ -38,15 +38,19 @@ COMMIT;
 -- - event with id 3 exists in DB
 -- - user with id 1 exists in DB
 
-BEGIN;
--- IF STATEMENT?????????????
-SELECT max_amount - sold_amount as free_tickets FROM tickets;
 
-INSERT INTO participants VALUES(1, 3);
-UPDATE tickets SET sold_amount = sold_amount+1;
-UPDATE users SET last_activity = now() WHERE user_id = 1;
 
+DO
+$do$
+BEGIN
+IF exists (SELECT 1 FROM TICKETS WHERE event_id = 10 AND sold_amount < max_amount) THEN
+	INSERT INTO participants VALUES(1, 3);
+	UPDATE tickets SET sold_amount = sold_amount+1;
+	UPDATE users SET last_activity = now() WHERE user_id = 1;
+END IF;
 COMMIT;
+END
+$do$
 
 --****************************************************************************
 --Get top 10 profitable events with rating at least 4
@@ -85,15 +89,14 @@ limit 10;
 BEGIN;
 
 insert into participants
-select 100, desired.id from
-	(select e.* from events e
+select 100, e.event_id from events e
 	join places p on p.place_id = e.place_id
-	where st_dwithin(p.location, (select location from users where user_id = 100), 25000, true) and e.ends_at < now() and e.starts_at > now()
-	order by (select count(*) from participants part where part.event_id = e.event_id) desc
-	offset 0
-	limit 15)
-as desired
-where exists(select t.ticket_id from tickets t where sold_amount < max_amount);
+where st_dwithin(p.location, (select location from users where user_id = 100), 25000, true) and
+				e.ends_at < now() and e.starts_at > now() and
+				exists(select t.ticket_id from tickets t where sold_amount < max_amount and event_id = e.event_id)
+order by (select count(*) from participants part where part.event_id = e.event_id) desc
+offset 0
+limit 15;
 
 commit;
 
@@ -113,7 +116,7 @@ where u.user_id in (
 	select e.user_id from events e
 	join places p on p.place_id = e.place_id
 	where st_dwithin(p.location, u.location, 25000) = false and e.created_at > now() - interval '1 month'
-	group by u.user_id
+	group by e.user_id
 	having count(e.user_id) > 10
 );
 

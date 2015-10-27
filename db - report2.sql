@@ -123,4 +123,27 @@ where u.user_id in (
 commit;
 
 
+-- Move events to replacement location (nearest) when given place is disabled.
+--  Select all events located in given place (events in given place)
+--  Find (Select) nearest place
+--  Update location of all events in given place
+
+
+BEGIN;
+
+UPDATE events SET place_id=(
+	SELECT p.place_id 
+	FROM places p
+	ORDER BY st_distance(
+		p.location, 
+		(SELECT location FROM places WHERE place_id = 1)
+	)
+	LIMIT 1 OFFSET 1
+) 
+WHERE place_id = 1;
+
+COMMIT;
+
+
+
 

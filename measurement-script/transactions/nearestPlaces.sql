@@ -1,0 +1,7 @@
+\timing on
+
+select p.* from places p
+	join events e on p.place_id = e.place_id
+	join participants part on part.event_id = e.event_id and part.user_id = 100
+order by st_distance(p.location, (select location from users where user_id = 100))
+limit 10;

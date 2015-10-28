@@ -12,7 +12,11 @@ VALUES('participant@domain.com', 'superpass', 123.123,654.654, now(), now()) ;
 --Transaction
 
 BEGIN;
-	INSERT INTO places (name, latitude, longitude, description) VALUES('Super bar', 123.123456, 321.321654, 'Great place to have a fun');
+	INSERT INTO places (name, latitude, longitude, description, location) 
+	VALUES(
+		'Super bar', 123.123456, 123.321654, 'Great place to have a fun', 
+		ST_SetSRID(ST_MakePoint(123.123456, 123.321654), 4326)
+	);
 
 	INSERT INTO events (
 		name, description, created_at, starts_at, ends_at, user_id, place_id
@@ -48,7 +52,6 @@ IF exists (SELECT 1 FROM TICKETS WHERE event_id = 10 AND sold_amount < max_amoun
 	UPDATE tickets SET sold_amount = sold_amount+1 WHERE event_id = 10;;
 	UPDATE users SET last_activity = now() WHERE user_id = 1;
 END IF;
-COMMIT;
 END
 $do$
 

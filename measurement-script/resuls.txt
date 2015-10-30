@@ -1,7 +1,7 @@
-addEvent.sql Time: 21,283 ms
-addParticipant.sql Time: 47,847 ms
-addParticipantMostPopularEvents.sql Time: 0,149 ms
-deleteSpam.sql Time: 0,218 ms
-moveToReplacementLocation.sql Time: 28,377 ms
-nearestPlaces.sql Time: 12,804 ms
-topProfitableEvents.sql Time: 157,404 ms
+addEvent.sql 0.051 seconds
+addParticipant.sql 0.044 seconds
+topProfitableEvents.sql 0.15 seconds
+nearestPlaces.sql 0.014 seconds
+addParticipantMostPopularEvents.sql 0.019 seconds
+deleteSpam.sql 79.94 seconds
+moveToReplacementLocation.sql 0.048 seconds

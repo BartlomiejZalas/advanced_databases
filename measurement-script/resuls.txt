@@ -1,5 +1,0 @@
-addEvent.sql 0.055 seconds
-addParticipant.sql 0.045 seconds
-topProfitableEvents.sql 0.148 seconds
-nearestPlaces.sql 0.018 seconds
-addParticipantMostPopularEvents.sql 0.021 seconds

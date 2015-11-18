@@ -1,13 +1,14 @@
 #!/bin/bash
 
 CREATE_INDICES=true
+INDICES_FILE_NAME=add-indices-hash-gist.sql
 FILE=results.txt
 BACKUP=backup10k.backup
-MAIN_DIRECTORY="/home/bartek/advancedDatabases"
-#MAIN_DIRECTORY="/Users/paweliwanow/nauka/Advanced Databases/advanced_databases"
+#MAIN_DIRECTORY="/home/bartek/advancedDatabases"
+MAIN_DIRECTORY="/Users/paweliwanow/nauka/Advanced Databases/advanced_databases"
 PG_USER=postgres
-PG_DB_NAME=database1
-#PG_DB_NAME=advanced
+#PG_DB_NAME=database1
+PG_DB_NAME=advanced
 
 function cleanResults {
 	rm -f $FILE;
@@ -18,7 +19,7 @@ function restoreDB {
 	psql -h localhost -d $PG_DB_NAME -U $PG_USER < "$MAIN_DIRECTORY/data/beforeImport.sql";
 	pg_restore -i -h localhost -p 5432 -U $PG_USER -d $PG_DB_NAME -v "$MAIN_DIRECTORY/data/$BACKUP";
 	if [ "$CREATE_INDICES" = true ] ; then
-		psql -h localhost -d $PG_DB_NAME -U $PG_USER < "$MAIN_DIRECTORY/add-indices.sql";
+		psql -h localhost -d $PG_DB_NAME -U $PG_USER < "$MAIN_DIRECTORY/$INDICES_FILE_NAME";
 	fi
 }
 
